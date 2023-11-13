@@ -1,0 +1,167 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 20px;
+    padding: 0;
+    background-color: #f0f0f0;
+  }
+  
+  #titulo {
+    text-align: center;
+    margin: 20px 0;
+    color: #333;
+  }
+  
+  /* Tabla  */
+  .availability-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .availability-table th,
+  .availability-table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+
+  }
+  
+  .availability-table th {
+    background-color: #923535;
+    color: white;
+  }
+
+  .fechasDispo {
+    background-color: rgb(229, 228, 228); 
+}
+
+
+@media (max-width: 550px) { 
+  .availability-table th {
+      font-size: 10px;
+      padding: 5px;
+}
+  .availability-table td {
+      font-size: 12px;
+      padding: 6px;
+}
+#titulo {
+font-size: 15px;
+}
+}
+
+
+/*FORMULARIO*/
+
+/* Estilos generales del formulario */
+#reservationForm {
+  width: 60%;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Estilos para las etiquetas */
+label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+/* Estilos para los campos de entrada */
+input[type="text"],
+textarea {
+  width: 100%;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+input[type="number"]{
+  width: 50%;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+/* Estilos para el botón de envío */
+input[type="submit"] {
+  display: block;
+  width: 100%;
+  background-color: #923535;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/*títulos (como "Accesorios") */
+h3 {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+/* Estilos para el área de texto (Descripción) */
+textarea {
+  width: 100%;
+}
+
+/* Estilos para los elementos de accesorios (como Sillas, Proyector, etc.) */
+.accessory {
+  margin: 10px 0;
+}
+
+/* Estilos para el contenedor de accesorios */
+#accessories {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 3px;
+}
+
+/* Cambiar el color del botón de envío al pasar el mouse sobre él */
+input[type="submit"]:hover {
+  background-color: #7a2828;
+}
+
+#myModal {
+  display: none;
+  position: fixed;
+  top: 220px;
+  width: 56%;
+  height: 50%;
+  /* background-color: rgb(186, 144, 144); */
+  background-color: rgba(194, 192, 192, 0.9);
+  border-radius: 5px;
+  text-align: center;
+  left: 22%;
+}
+
+#closeModal{
+  background-color: #923535;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#reservaConfirm{
+  color: #000;
+  padding: 10px;
+  border: none;
+  font-weight: bolder;
+  font-size: 2em;
+}
+
+#textoModal{
+  font-size: 1.5em;
+}
+
+div.modal-content{
+padding-top: 12%;
+}
