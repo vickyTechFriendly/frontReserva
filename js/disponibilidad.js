@@ -1,12 +1,12 @@
 async function getBuilding(edificioId) {
-const startDateTimeGet = '2023-11-13T00:00:00';
+const startDateTimeGet = '2023-11-14T00:00:00';
 const endDateTimeGet = '2023-11-18T00:00:00';
     try {
         const response = await fetch(`http://localhost:8080/Web/Services/index.php/Schedules/${edificioId}/Slots?startDateTime=${startDateTimeGet}&endDateTime=${endDateTimeGet}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'X-Booked-SessionToken': '7dc4d21ceb6e871a5d76147f64909aff19577e20951d19c44b',
+            'X-Booked-SessionToken': '05365efc8c8ab31249d451f4928629310534edd273421a2dc1',
             'X-Booked-UserId': '1'
         }
     });
@@ -28,7 +28,7 @@ const endDateTimeGet = '2023-11-18T00:00:00';
 }
 }
 
-function renderBuilding(building) {
+function renderTabla(building) {
     let resultado = document.getElementById("finalResults");
     // Creación tabla 
     let table = document.createElement("table");
@@ -50,34 +50,33 @@ function renderBuilding(building) {
         let headerCell = document.createElement("th"); 
         let startTime = new Date(slot.startDateTime); 
         let endTime = new Date(slot.endDateTime);
-        headerCell.innerText = `${startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`; 
+        headerCell.innerText = `${startTime.toLocaleTimeString([], { hour: '2-digit'})}`; 
         headerRow.appendChild(headerCell); 
     }); 
-    console
 
     table.appendChild(headerRow);
-
+    
+    //header de fechas
     building.dates.forEach((date, dateIndex) => {
         date.resources.forEach((resource, resourceIndex) => {
             const resourceName = resource.resourceName;
-    //header de fechas
-                if (resourceIndex === 0) {
-                let dateRow = document.createElement("tr");
-                dateRow.classList.add("fechasDispo");
-                let dateCell = document.createElement("td");
-                let dateValue = new Date(date.date);
-                dateCell.innerText = dateValue.toLocaleDateString();
-                dateCell.colSpan = slotsToShow.length + 1;
-                dateRow.appendChild(dateCell);
-                table.appendChild(dateRow);
-            }
+            if (resourceIndex === 0) { 
+            let dateRow = document.createElement("tr");
+            dateRow.classList.add("fechasDispo");
+            let dateCell = document.createElement("td");
+            let dateValue = new Date(date.date);
+            dateCell.innerText = dateValue.toLocaleDateString();
+            dateCell.colSpan = slotsToShow.length + 1;
+            dateRow.appendChild(dateCell);
+            table.appendChild(dateRow);
+        }
     //header de salas
             let row = document.createElement("tr");
             let cell = document.createElement("td");
             cell.innerText = resourceName;
             row.appendChild(cell);
-
-    //celdas de disponibilidad 
+            
+    //celdas de disponibilidad - MODIFICAR! -
             slotsToShow.forEach((slot) => {
                 if (slot.isReservable || slot.isReserved) {
                     let cell = document.createElement("td");
@@ -87,17 +86,16 @@ function renderBuilding(building) {
                     row.appendChild(cell);
                 }
             });
-
             table.appendChild(row);
         });
     });
     resultado.appendChild(table);
-    }
+}
 
 async function createBuilding() {
-    const building = await getBuilding(1);
+    const building = await getBuilding(2);
     if (building) {
-        renderBuilding(building);
+        renderTabla(building);
     }
 }
 
@@ -131,7 +129,7 @@ document.getElementById("reservationForm").addEventListener("submit", function(e
         description: description,
         startDateTime: startReservationDateTime,
         endDateTime: endDateTime,
-        resourceId: 4,
+        resourceId: resourceId,
         title: title,
         userId: 1, 
         allowParticipation: allowParticipation,
@@ -144,7 +142,7 @@ document.getElementById("reservationForm").addEventListener("submit", function(e
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
-            'X-Booked-SessionToken': '7dc4d21ceb6e871a5d76147f64909aff19577e20951d19c44b',
+            'X-Booked-SessionToken': '05365efc8c8ab31249d451f4928629310534edd273421a2dc1',
             'X-Booked-UserId': '1'
         },
         body: JSON.stringify(reservationData)
@@ -174,4 +172,3 @@ document.getElementById("closeModal").addEventListener("click", function() {
     modal.style.display = "none";
     document.getElementById("reservationForm").reset();
 });
-

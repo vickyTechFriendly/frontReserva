@@ -54,6 +54,16 @@ font-size: 15px;
 
 /*FORMULARIO*/
 
+#form{
+  margin-top: 40px;
+}
+
+#terminos {
+display: flex;
+justify-content: flex-start;
+align-items: center;
+}
+
 /* Estilos generales del formulario */
 #reservationForm {
   width: 60%;
