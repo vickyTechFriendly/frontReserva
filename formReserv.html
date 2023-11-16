@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=700, initial-scale=1.0">
+    <title>Reserva</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap");
+      </style>
+      <!-- <link rel="stylesheet" href="reset.css" /> -->
+</head>
+<body>
+    <h1>Formulario de Reserva</h1>
+    <form id="reservaForm" action="procesar_reserva.php" method="POST">
+        <!-- <label for="edificio">Edificio:</label>
+        <input type="text" id="edificio" name="edificio" autocomplete="on">
+        <br> -->
+        <div id="salas" style="display: block;">
+            <label for="sala">Sala:</label>
+            <select id="sala" name="sala">
+                <option value="" selected disabled>Selecciona una sala</option>
+                <option value="sala1">Sala 1</option>
+                <option value="sala2">Sala 2</option>
+                <option value="sala3">Sala 3</option>
+            </select>
+            <br>
+        </div>
+
+        <div id="paso2" style="display: none;">
+            <label for="dia">Día:</label>
+            <input type="date" id="dia" name="dia">
+            <br>
+        </div>
+
+        <div id="paso3" style="display: none;">
+            <label for="hora">Hora:</label>
+            <select id="hora" name="hora">
+                <option value="" selected disabled>Selecciona una hora</option>
+                <option value="09:00">09:00 AM</option>
+                <option value="10:00">10:00 AM</option>
+                <option value="11:00">11:00 AM</option>
+                <option value="12:00">12:00 PM</option>
+                <!--horas según sea necesario -->
+            </select>
+            <br>
+        </div>
+        <div id="paso4" style="display: none;">
+            <label for="participantes">Participantes:</label>
+            <select id="participantes" name="participantes">
+                <option value="" selected disabled>Selecciona cantidad</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <!--horas según sea necesario -->
+            </select>
+            <br>
+        </div>
+
+        <div id="paso5" style="display: none;">
+            <label for="solicitante">Solicitante:</label>
+            <input type="text" id="solicitante" name="solicitante">
+            <br>
+        </div>
+
+        <div id="paso6" style="display: none;">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+            <br>
+        </div>
+
+        <div id="paso7" style="display: none;">
+            <label for="telefono">Teléfono:</label>
+            <input type="tel" id="telefono" name="telefono">
+            <br>
+        </div>
+
+        <div id="paso8" style="display: none;">
+            <label for="observaciones">Observaciones:</label>
+            <textarea id="observaciones" name="observaciones" rows="4" cols="50"></textarea>
+            <br>
+        </div>
+
+        <input type="submit" value="Reservar Sala" id="reservarBtn" style="display: none;">
+    </form>
+
+    <!-- <div id="myModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2 class="finalizada">¡Reserva exitosa!</h2>
+          <p class="finalizada">Acabamos de envíar un correo de confirmación a la dirección proporcionada.</p>
+        </div>
+      </div> -->
+      <script src="js/formReserv.js"></script>
+</body>
+</html>

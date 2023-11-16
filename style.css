@@ -1,56 +1,14 @@
 body {
     font-family: 'Montserrat', sans-serif;
-    margin: 20px;
-    padding: 0;
     background-color: #f0f0f0;
   }
   
   #titulo {
+    
     text-align: center;
     margin: 20px 0;
     color: #333;
   }
-  
-  /* Tabla  */
-  .availability-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .availability-table th,
-  .availability-table td {
-    padding: 10px;
-    text-align: center;
-    border: 1px solid #e0e0e0;
-
-  }
-  
-  .availability-table th {
-    background-color: #923535;
-    color: white;
-  }
-
-  .fechasDispo {
-    background-color: rgb(229, 228, 228); 
-}
-
-
-@media (max-width: 550px) { 
-  .availability-table th {
-      font-size: 10px;
-      padding: 5px;
-}
-  .availability-table td {
-      font-size: 12px;
-      padding: 6px;
-}
-#titulo {
-font-size: 15px;
-}
-}
-
 
 /*FORMULARIO*/
 
@@ -71,33 +29,50 @@ align-items: center;
   padding: 30px;
   background-color: #f8f8f8;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 10px;
   font-family: 'Montserrat', sans-serif;
 }
 
 /* Estilos para las etiquetas */
 label {
+  font-family: 'Mulish', sans-serif;
   display: block;
   margin-top: 10px;
-  font-weight: bold;
+  margin-bottom: 5px;
 }
 
 /* Estilos para los campos de entrada */
+select{
+  width: 100%;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+
+}
+
 input[type="text"],
 textarea {
   width: 100%;
   margin-top: 5px;
   border: 1px solid #ccc;
-  border-radius: 3px;
+  border-radius: 10px;
 }
 input[type="number"]{
   width: 50%;
   margin-top: 5px;
   border: 1px solid #ccc;
-  border-radius: 3px;
+  border-radius: 10px;
+}
+
+input[type="date"]{
+  width: 50%;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
 }
 /* Estilos para el botón de envío */
 input[type="submit"] {
+  font-family: 'Montserrat', sans-serif;
   display: block;
   width: 100%;
   background-color: #923535;
@@ -106,7 +81,8 @@ input[type="submit"] {
   border: none;
   border-radius: 3px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: bolder;
+  margin-top: 25px;
 }
 
 /*títulos (como "Accesorios") */
@@ -129,7 +105,7 @@ textarea {
 #accessories {
   border: 1px solid #ccc;
   padding: 10px;
-  border-radius: 3px;
+  border-radius: 10px;
 }
 
 /* Cambiar el color del botón de envío al pasar el mouse sobre él */
@@ -174,4 +150,13 @@ input[type="submit"]:hover {
 
 div.modal-content{
 padding-top: 12%;
+}
+
+
+#salaActual{
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #923535;
+  text-align: center;
+  margin: 30px;
 }
