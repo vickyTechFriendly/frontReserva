@@ -33,7 +33,7 @@ async function getBuilding(edificioId) {
         headers: {
           "Content-Type": "application/json",
           "X-Booked-SessionToken":
-            "46c566ad7c8df48da0d682a354c337df485a4303136cfc370a",
+            "4f9f1b528fb02debe407753b55b18e373609721c42a7d91d05",
           "X-Booked-UserId": "1",
         },
       }
@@ -67,8 +67,7 @@ async function getBuilding(edificioId) {
         document.getElementById("resourceId").appendChild(option);
       });
 
-      //Agregar un listener al cambio de fecha
-      startDateTimeInput.addEventListener("change", actualizarHoras);
+
 
       // Agrega un evento de cambio al select de resourceId
 const resourceIdSelect = document.getElementById("resourceId");
@@ -81,68 +80,59 @@ function mostrarHorasDisponibles() {
 
   // Obtener el valor seleccionado del select de resourceId
   const selectedResourceId = resourceIdSelect.value;
+  
 
   // Buscar las horas disponibles para la sala seleccionada
   const horasDisponibles = building.dates[0].resources.find(
     (resource) => resource.resourceId === selectedResourceId
   ).slots.filter((slot) => slot.isReservable);
-  console.log("horasDisponibles", horasDisponibles);
+  //console.log("horasDisponibles", horasDisponibles);
 
   // Agregar las nuevas opciones al select de horas
   horasDisponibles.forEach((slot) => {
     const option = document.createElement("option");
     const formattedTime = slot.startDateTime.split("T")[1].substring(0, 5); // Extraer hh:mm de la cadena
-    option.value = slot.slotId;
+    option.value = slot.startDateTime;
     option.innerText = formattedTime;
     horaSelect.appendChild(option);
   });
 }
 
-function actualizarHoras() {
+//Agregar un listener al cambio de fecha      
+// startDateTimeInput.addEventListener("change", actualizarHoras);     
+/* function actualizarHoras() {
   try {
     // Obtener la nueva fecha del input
-    let nuevaFecha = document.getElementById("startDateTime").value;
-    nuevaFecha = `${nuevaFecha}T00:00:00+0100`;
+  let nuevaFecha = document.getElementById("startDateTime").value;
+  nuevaFecha = `${nuevaFecha}T00:00:00+0100`;
 
     // Limpiar las opciones actuales del select de horas
     const horaSelect = document.getElementById("hora");
     horaSelect.innerHTML = '<option value="" selected disabled>Selecciona una hora</option>';
 
     // Obtener el valor seleccionado del select de resourceId
-    const selectedResourceId = resourceIdSelect.value;
+    const salaActualId =document.getElementById("resourceId").value;
+    console.log("selectedResourceId", salaActualId);
 
-    // Buscar las horas disponibles para la sala y la nueva fecha seleccionada
-    const dateData = building.dates.find(
-      (date) => date.date === nuevaFecha
-    );
+    // Buscar las horas disponibles para el id de la sala y la nueva fecha seleccionada
 
-    if (dateData && dateData.resources) {
-      const resource = dateData.resources.find(
-        (resource) => resource.resourceId === selectedResourceId
-      );
+    const horasDisponibles = building.dates.find(
+      (date) => date.date === nuevaFecha && date.resources.resourceId === salaActualId && date.resources.slots.isReservable);
 
-      if (resource && resource.slots) {
-        const horasDisponibles = resource.slots.filter((slot) => slot.isReservable);
-
-        // Agregar las nuevas opciones al select de horas
-        horasDisponibles.forEach((slot) => {
-          const option = document.createElement("option");
-          const formattedTime = slot.startDateTime.split("T")[1].substring(0, 5); // Extraer hh:mm de la cadena
-          option.value = slot.slotId;
-          option.innerText = formattedTime;
-          horaSelect.appendChild(option);
-        });
-      } else {
-        console.warn(`No hay información disponible para la sala y fecha seleccionadas`);
-      }
-    } else {
-      console.warn(`No hay información disponible para la fecha ${nuevaFecha}`);
-    }
+    // Agregar las nuevas opciones al select de horas
+    horasDisponibles.forEach((slot) => {
+      const option = document.createElement("option");
+      const formattedTime = slot.startDateTime.split("T")[1].substring(0, 5); // Extraer hh:mm de la cadena
+      option.value = slot.slotId;
+      option.innerText = formattedTime;
+      horaSelect.appendChild(option);
+    });
   } catch (error) {
     console.error("Error al actualizar horas:", error);
   }
-}
-      return building;
+} */
+      
+return building;
     } else {
       throw new Error(
         `No se encontraron datos para el edificio con ID ${edificioId}`
@@ -174,8 +164,8 @@ function actualizarTitulo(edificioId) {
 getBuilding(2);
 
 
-/* const duracionReserva = building.dates[0].resources[0].slots.filter(slot => slot.isReservable);
-const horasDisponibles = building.dates[0].resourcesslots.filter((slot) => slot.isReservable); */
+const duracionReserva = building.dates[0].resources[0].slots.filter(slot => slot.isReservable);
+console.log(duracionReserva);
 
 
 
@@ -186,9 +176,9 @@ document
     event.preventDefault();
 
     const resourceId = parseInt(document.getElementById("resourceId").value);
-    const startReservationDateT = document.getElementById("startDateTime").value;
     const startReservationTime = document.getElementById("hora").value;
-    const startReservationDateTime = `${startReservationDateT}T${startReservationTime}:00+0100`;
+
+
     const endDateTime = document.getElementById("endDateTime").value;
     
     const attributeId = document.getElementById("attributeId").value;
@@ -227,7 +217,7 @@ document
     const reservationData = {
       accessories: accessories,
       description: description,
-      startDateTime: startReservationDateTime,
+      startDateTime: startReservationTime,
       endDateTime: endDateTime,
       resourceId: resourceId,
       customAttributes: customAttributes,
@@ -244,7 +234,7 @@ document
       headers: {
         "Content-Type": "application/json",
         "X-Booked-SessionToken":
-          "46c566ad7c8df48da0d682a354c337df485a4303136cfc370a",
+          "6796f6176015b254890d775d7e08f0c523bcfbe5c960762672",
         "X-Booked-UserId": "1",
       },
       body: JSON.stringify(reservationData),

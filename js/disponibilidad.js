@@ -6,7 +6,7 @@ const endDateTimeGet = '2023-11-18T00:00:00';
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'X-Booked-SessionToken': '05365efc8c8ab31249d451f4928629310534edd273421a2dc1',
+            'X-Booked-SessionToken': '4f9f1b528fb02debe407753b55b18e373609721c42a7d91d05',
             'X-Booked-UserId': '1'
         }
     });
@@ -142,7 +142,7 @@ document.getElementById("reservationForm").addEventListener("submit", function(e
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
-            'X-Booked-SessionToken': '05365efc8c8ab31249d451f4928629310534edd273421a2dc1',
+            'X-Booked-SessionToken': '6796f6176015b254890d775d7e08f0c523bcfbe5c960762672',
             'X-Booked-UserId': '1'
         },
         body: JSON.stringify(reservationData)
