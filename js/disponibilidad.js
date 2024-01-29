@@ -6,7 +6,7 @@ const endDateTimeGet = '2023-11-18T00:00:00';
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'X-Booked-SessionToken': '4f9f1b528fb02debe407753b55b18e373609721c42a7d91d05',
+            'X-Booked-SessionToken': '4e474800c1dee9e537fb4bacb42af6100fbe14e5018ad599f4',
             'X-Booked-UserId': '1'
         }
     });
