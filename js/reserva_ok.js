@@ -33,7 +33,7 @@ async function getBuilding(edificioId) {
         headers: {
           "Content-Type": "application/json",
           "X-Booked-SessionToken":
-            "4e474800c1dee9e537fb4bacb42af6100fbe14e5018ad599f4",
+            "63846a9e19a1afe54f8961fe0c86623d0eaf89c7d983480e5b",
           "X-Booked-UserId": "1",
         },
       }
@@ -57,11 +57,7 @@ async function getBuilding(edificioId) {
       startDateTimeInput.addEventListener("change", (e) => {
         const nuevaFecha = e.target.value;
         firstDate = building.dates.find((date) => date.date.split("T")[0] === nuevaFecha);
-      console.log("______")
-      console.log("valor target",nuevaFecha);
-      console.log(building.dates.map(date => date.date.split("T")[0]));
-      console.log("fecha actual",firstDate);
-      console.log("-----------------")
+
          });
 
       // Mostrar nombres de salas para la primera fecha en el select de salas
@@ -134,7 +130,7 @@ function actualizarTitulo(edificioId) {
 }
 
 
-getBuilding(1);
+getBuilding(2);
 
 
 /////CREAR RESERVA//////
@@ -147,7 +143,7 @@ document
     const startReservationTime = document.getElementById("hora").value;
 
 
-    const endDateTime = document.getElementById("endDateTime").value;
+    //const endDateTime = document.getElementById("endDateTime").value;
     
     const attributeId = document.getElementById("attributeId").value;
     const attributeValue = document.getElementById("attributeValue").value;
@@ -159,14 +155,16 @@ document
     ];
 
     const description = document.getElementById("description").value;
-    
     const title = document.getElementById("title").value;
-    
     
 
     const allowParticipation = document.getElementById("allowParticipation").value;
-    const termsAccepted = document.getElementById("termsAccepted").value;
-    
+
+    const termsAccepted = document.getElementById("termsAccepted").checked;
+    if(!termsAccepted){
+      alert("Debes aceptar los términos y condiciones para continuar");
+      return;
+    }
 
     const accessories = [];
     for (let i = 1; i <= 4; i++) {
@@ -186,7 +184,7 @@ document
       accessories: accessories,
       description: description,
       startDateTime: startReservationTime,
-      endDateTime: endDateTime,
+      endDateTime: "2024-02-01T16:00:00+0100",
       resourceId: resourceId,
       customAttributes: customAttributes,
       title: title,
@@ -202,7 +200,7 @@ document
       headers: {
         "Content-Type": "application/json",
         "X-Booked-SessionToken":
-          "6796f6176015b254890d775d7e08f0c523bcfbe5c960762672",
+          "63846a9e19a1afe54f8961fe0c86623d0eaf89c7d983480e5b",
         "X-Booked-UserId": "1",
       },
       body: JSON.stringify(reservationData),

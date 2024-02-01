@@ -6,7 +6,7 @@ const endDateTimeGet = '2023-11-18T00:00:00';
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'X-Booked-SessionToken': '250f76da0b7eeaeb778da91b3f896ba989e664a1918a83564b',
+            'X-Booked-SessionToken': '63846a9e19a1afe54f8961fe0c86623d0eaf89c7d983480e5b',
             'X-Booked-UserId': '1'
         }
     });
@@ -139,21 +139,21 @@ document.getElementById("reservationForm").addEventListener("submit", function(e
         allowParticipation: allowParticipation,
         termsAccepted: termsAccepted
     };
-    console.log(reservationData);
+    console.log("datos que se envían en la reserva",reservationData);
 
     // Realizar la solicitud POST a la API
     fetch("http://localhost:8080/Web/Services/index.php/Reservations/", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
-            'X-Booked-SessionToken': '250f76da0b7eeaeb778da91b3f896ba989e664a1918a83564b',
+            'X-Booked-SessionToken': '63846a9e19a1afe54f8961fe0c86623d0eaf89c7d983480e5b',
             'X-Booked-UserId': '1'
         },
         body: JSON.stringify(reservationData)
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data);
+        console.log("respuesta peticion post",data);
         if (data.message === "The reservation was created") {
             // Muestra la ventana modal
             modal.style.display = "block";
@@ -176,4 +176,3 @@ document.getElementById("closeModal").addEventListener("click", function() {
     modal.style.display = "none";
     document.getElementById("reservationForm").reset();
 });
-
