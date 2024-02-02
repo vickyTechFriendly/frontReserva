@@ -22,6 +22,12 @@ justify-content: flex-start;
 align-items: center;
 }
 
+#accesorioluz {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  }
+
 /* Estilos generales del formulario */
 #reservationForm {
   width: 60%;

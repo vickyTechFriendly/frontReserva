@@ -33,7 +33,7 @@ async function getBuilding(edificioId) {
         headers: {
           "Content-Type": "application/json",
           "X-Booked-SessionToken":
-            "35ae9c5aa1fb243f5add162e98b2f11c3b828d5e4e278fa261",
+            "65096945feeeaf9c1f78b42c273840e15f6c4a97d691981db6",
           "X-Booked-UserId": "1",
         },
       }
@@ -109,9 +109,19 @@ async function getBuilding(edificioId) {
     const option = document.createElement("option");
     const formattedTime = slot.startDateTime.split("T")[1].substring(0, 5); // Extraer hh:mm de la cadena
     option.value = slot.startDateTime;
+    option.dataset.endDateTime = slot.endDateTime; // Guardar la fecha de fin en un atributo personalizado del elemento
     option.innerText = formattedTime;
     horaSelect.appendChild(option);
   });
+
+  //Actualizar el valor del input de endDateTime
+  horaSelect.addEventListener('change', function() {
+    const selectedOption = this.options[this.selectedIndex];
+    const endDateTime = selectedOption.dataset.endDateTime; // Recupera el endDateTime del dataset
+    document.getElementById('endDateTime').value = endDateTime; // Actualiza el valor del input oculto
+    //console.log("endDateTimeInput",endDateTime);
+});
+  
 }
       
 return building;
@@ -142,10 +152,20 @@ function actualizarTitulo(edificioId) {
 }
 
 
-getBuilding(2);
+getBuilding(1);
+
+
+
+
+
 
 
 /////CREAR RESERVA//////
+document.getElementById('quantity1').addEventListener('change', function() { //Neesario que esté fuera del evento submit para que se actualie el valor del checkbox
+  this.value = this.checked ? '1' : '0';
+  //console.log('Valor del checkbox:', this.value);
+});
+
 document
   .getElementById("reservationForm")
   .addEventListener("submit", function (event) {
@@ -153,9 +173,7 @@ document
 
     const resourceId = parseInt(document.getElementById("resourceId").value);
     const startReservationTime = document.getElementById("hora").value;
-
-
-    //const endDateTime = document.getElementById("endDateTime").value;
+    const endReservationTime = document.getElementById("endDateTime").value;
     
     const attributeId = document.getElementById("attributeId").value;
     const attributeValue = document.getElementById("attributeValue").value;
@@ -196,7 +214,7 @@ document
       accessories: accessories,
       description: description,
       startDateTime: startReservationTime,
-      endDateTime: "2024-02-01T16:00:00+0100",
+      endDateTime: endReservationTime,
       resourceId: resourceId,
       customAttributes: customAttributes,
       title: title,
@@ -212,7 +230,7 @@ document
       headers: {
         "Content-Type": "application/json",
         "X-Booked-SessionToken":
-          "63846a9e19a1afe54f8961fe0c86623d0eaf89c7d983480e5b",
+          "65096945feeeaf9c1f78b42c273840e15f6c4a97d691981db6",
         "X-Booked-UserId": "1",
       },
       body: JSON.stringify(reservationData),

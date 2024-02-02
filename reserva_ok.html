@@ -48,25 +48,25 @@
 
     <h3>Accesorios:</h3>
     <div id="accessories">
-        <div class="accessory">
-            <label for="accessory1">Sillas:</label>
+        <div class="accessory" id="accesorioluz">
+            <input type="checkbox" id="quantity1" name="quantityRequested[]" value="0">
+            <label for="accessory1"> Luz</label>
             <input type="hidden" id="accessory1" name="accessoryId[]" value="3" >
-            <input type="number" id="quantity1" name="quantityRequested[]" value="">
         </div>
         <div class="accessory">
             <label for="accessory2">Proyector:</label>
             <input type="hidden" id="accessory2" name="accessoryId[]" value="4">
-            <input type="number" id="quantity2" name="quantityRequested[]" value="">
+            <input type="number" id="quantity2" name="quantityRequested[]" value="" min="0">
         </div>
         <div class="accessory">
-            <label for="accessory3">Luz:</label>
+            <label for="accessory3">Sillas:</label>
             <input type="hidden" id="accessory3" name="accessoryId[]" value="5">
-            <input type="number" id="quantity3" name="quantityRequested[]" value="">
+            <input type="number" id="quantity3" name="quantityRequested[]" value="" min="0">
         </div>
         <div class="accessory">
             <label for="accessory4">Micrófono:</label>
             <input type="hidden" id="accessory4" name="accessoryId[]" value="6">
-            <input type="number" id="quantity4" name="quantityRequested[]" value="">
+            <input type="number" id="quantity4" name="quantityRequested[]" value="" min="0">
         </div>
         <div id="terminos">
         <input type="checkbox" id="termsAccepted" name="termsAccepted" value="">
