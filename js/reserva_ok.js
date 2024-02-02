@@ -2,7 +2,7 @@ async function getBuilding(edificioId) {
   
   function obtenerFechaActual(isStart) {
     const fecha = new Date();
-    const offset = isStart ? 0 : 6; // 0 para inicio, 6 para fin
+    const offset = isStart ? 0 : 6; // 0 para inicio, 6 para que devuelva la fecha de 6 días después
     fecha.setDate(fecha.getDate() + offset);
 
     const año = fecha.getFullYear();
@@ -13,10 +13,10 @@ async function getBuilding(edificioId) {
 
     return dateTimeGet; //aquí devolvemos la fecha actual en formato yyyy/mm/ddThh:mm:ss
   }
-  const startDateTimeGet = obtenerFechaActual(true); 
-  const endDateTimeGet = obtenerFechaActual(false);
+  const startDateTimeGet = obtenerFechaActual(true); //fecha inicio
+  const endDateTimeGet = obtenerFechaActual(false); //fecha fin (6 días después)
 
-  function convertirFecha(inputFecha) {
+  function convertirFecha(inputFecha) { //Necesario para convertir la fecha que llega de la API
     const fecha = new Date(inputFecha);
     const año = fecha.getFullYear();
     const mes = String(fecha.getMonth() + 1).padStart(2, "0");
@@ -33,7 +33,7 @@ async function getBuilding(edificioId) {
         headers: {
           "Content-Type": "application/json",
           "X-Booked-SessionToken":
-            "63846a9e19a1afe54f8961fe0c86623d0eaf89c7d983480e5b",
+            "35ae9c5aa1fb243f5add162e98b2f11c3b828d5e4e278fa261",
           "X-Booked-UserId": "1",
         },
       }
@@ -49,18 +49,18 @@ async function getBuilding(edificioId) {
 
     if (building && building.dates.length > 0) {
       let firstDate = building.dates[0];
-      const firstFecha = firstDate.date;
+      const firstFecha = firstDate.date; //primera fecha devuelta por la API
 
       // Mostrar la primera fecha en el input de fecha
       const startDateTimeInput = document.getElementById("startDateTime");
-      startDateTimeInput.value = convertirFecha(firstFecha);
-      startDateTimeInput.addEventListener("change", (e) => {
+      startDateTimeInput.value = convertirFecha(firstFecha); //convierte la primera fecha al formato yyyy-mm-dd para mostrarla en el input
+      startDateTimeInput.addEventListener("change", (e) => { //agrega un evento de cambio al input de fecha para mostrar las salas disponibles para esa fecha en el select de salas
         const nuevaFecha = e.target.value;
         firstDate = building.dates.find((date) => date.date.split("T")[0] === nuevaFecha);
 
          });
 
-      // Mostrar nombres de salas para la primera fecha en el select de salas
+      // Mostrar nombres de salas en el select de salas 
       firstDate.resources.forEach((resource, resourceIndex) => {
         const resourceName = resource.resourceName;
         const resourceId = resource.resourceId;
@@ -68,29 +68,41 @@ async function getBuilding(edificioId) {
         const option = document.createElement("option");
         option.value = resourceId;
         option.innerText = resourceName;
-        document.getElementById("resourceId").appendChild(option);
+        document.getElementById("resourceId").appendChild(option); 
       });
 
+    // Agrega un evento de cambio al select de resourceId
+    const resourceIdSelect = document.getElementById("resourceId");
+    resourceIdSelect.addEventListener("change",(e)=> mostrarHorasDisponibles(e,firstDate));
 
+    // Agrega un evento de cambio al input de fecha
+    startDateTimeInput.addEventListener("change", (e) => {
+      const nuevaFecha = e.target.value;
+      firstDate = building.dates.find(
+        (date) => date.date.split("T")[0] === nuevaFecha
+      );
+      mostrarHorasDisponibles({ target: resourceIdSelect }, firstDate);
+    }
+  );
+    
+    function mostrarHorasDisponibles(e, date) {
+    // Limpiar las opciones actuales del select de horas
+    const horaSelect = document.getElementById("hora");
+    horaSelect.innerHTML = '<option value="" selected disabled>Selecciona una hora</option>';
 
-      // Agrega un evento de cambio al select de resourceId
-const resourceIdSelect = document.getElementById("resourceId");
-resourceIdSelect.addEventListener("change",(e)=> mostrarHorasDisponibles(e,firstDate));
+    // Obtener el valor seleccionado del select de resourceId
+    const selectedResourceId = e.target.value;
 
-function mostrarHorasDisponibles(e, date) {
-  // Limpiar las opciones actuales del select de horas
-  const horaSelect = document.getElementById("hora");
-  horaSelect.innerHTML = '<option value="" selected disabled>Selecciona una hora</option>';
-
-  // Obtener el valor seleccionado del select de resourceId
-  const selectedResourceId = e.target.value;
+    //obtener hora actual para comparar con las horas disponibles
+    const horaActual = new Date()
   
-
   // Buscar las horas disponibles para la sala seleccionada
   const horasDisponibles = date.resources.find(
     (resource) => resource.resourceId === selectedResourceId
-  ).slots.filter((slot) => slot.isReservable);
-  //console.log("horasDisponibles", horasDisponibles);
+  ).slots.filter((slot) => {
+    const startDateTime = new Date(slot.startDateTime);
+    return slot.isReservable && startDateTime > horaActual;
+  });
 
   // Agregar las nuevas opciones al select de horas
   horasDisponibles.forEach((slot) => {
